@@ -2,15 +2,16 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { loginContext } from "../App";
 import { FaTrashAlt } from 'react-icons/fa';
 const Contacts = () => {
-    const { name, email, setIsSignedUp } = useContext(loginContext);
+    const { name, email, isSignedUp, localStorage, setIsSignedUp } = useContext(loginContext);
     const [contacts, setContacts] = useState([]);
     const divRef = useRef([]);
     divRef.current = [];
     const [size, setSize] = useState(0);
-    const [deletedIndex, setDeletedIndex] = useState();
     const [ startingPoint, setStartingPoint ] = useState(0);
+    const [ record, setRecord] = useState([]);
     const requestSignOut = () => {
         setIsSignedUp(false);
+        localStorage.setItem('isSignedUp', JSON.stringify(false));
     }
     const getPreviousRecord = () => {
         if(startingPoint === 0) {
@@ -24,6 +25,7 @@ const Contacts = () => {
             alert('You are at the last page');
           } else {
             setStartingPoint(startingPoint+10);
+            
           }
       }
       const deleteRow = (deleteIndex) => {
@@ -38,13 +40,19 @@ const Contacts = () => {
       }
     useEffect(() => {
         const api = 'https://randomuser.me/api/?inc=name,email,phone&results=100';
+        console.log(contacts);
         fetch(api).then((res) => {
             return res.json();
         }).then((data) => {
             setSize(data.results.length);
+            setRecord(data.results);
             setContacts(data.results.slice(startingPoint, startingPoint+10));
         })
+    }, []);
+    useEffect(() => {
+        setContacts(record.slice(startingPoint, startingPoint+10));
     }, [startingPoint])
+
     return (
         <div className="contacts">
             <div className="brandBar">

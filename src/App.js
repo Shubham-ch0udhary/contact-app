@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import './App.css';
 import SignUp from './components/signup';
 import Contacts from './components/contacts';
@@ -12,8 +12,8 @@ function App() {
 
   return (
     <div className="App">
-      <loginContext.Provider value = {{name, setName, email, setEmail, password, setPassword, isSignedUp, setIsSignedUp}}>
-        {!isSignedUp ? <SignUp /> : <Contacts />}
+      <loginContext.Provider value = {{name, setName, email, setEmail, password, localStorage, setPassword, isSignedUp, setIsSignedUp}}>
+        {!JSON.parse(localStorage.getItem('isSignedUp')) ? <SignUp /> : <Contacts />}
       </loginContext.Provider>
       
     </div>

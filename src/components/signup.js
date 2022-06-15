@@ -18,13 +18,11 @@ const SignUp = () => {
         event.preventDefault();
         if(email.match(emailRegex) && name && password) {
             setIsSignedUp(true);
+            localStorage.setItem('isSignedUp', JSON.stringify(true));
         } else {
-            alert('Email is not right or other fields are empty')
+            alert('Either email is not right or other fields are empty')
         }
-        
-        
     }
-    
     return(
         <div>
             <div className='signup-form'>
