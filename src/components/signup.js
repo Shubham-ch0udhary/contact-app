@@ -6,12 +6,14 @@ const SignUp = () => {
     const { name, setName, email, setEmail, password, setPassword, setIsSignedUp } = useContext(loginContext);
     const getName = (event) => {
         setName(event.target.value);
+        localStorage.setItem('name', JSON.stringify(name));
     }
     const getPassword = (event) => {
         setPassword(event.target.value);
     }
     const getEmail = (event) => {
         setEmail(event.target.value);
+        localStorage.setItem('email', JSON.stringify(email));
     };
     const requestSignUp = (event) => {
         let emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
