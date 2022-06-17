@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { loginContext } from "../App";
 import { FaTrashAlt } from 'react-icons/fa';
+
 const Contacts = () => {
     const { name, email, isSignedUp, localStorage, setIsSignedUp } = useContext(loginContext);
     const [contacts, setContacts] = useState([]);
@@ -9,10 +10,6 @@ const Contacts = () => {
     const [size, setSize] = useState(0);
     const [ startingPoint, setStartingPoint ] = useState(0);
     const [ record, setRecord] = useState([]);
-    const requestSignOut = () => {
-        setIsSignedUp(false);
-        localStorage.setItem('isSignedUp', JSON.stringify(false));
-    }
     const getPreviousRecord = () => {
         if(startingPoint === 0) {
           alert('No previous page found')
@@ -28,6 +25,10 @@ const Contacts = () => {
             
           }
       }
+    const requestSignOut = () => {
+        setIsSignedUp(false);
+        localStorage.setItem('isSignedUp', JSON.stringify(false));
+    }
       const deleteRow = (deleteIndex) => {
         //setDeletedIndex(index);
         let newContactList = contacts.filter((item, index) => index !== deleteIndex)
@@ -40,7 +41,6 @@ const Contacts = () => {
       }
     useEffect(() => {
         const api = 'https://randomuser.me/api/?inc=name,email,phone&results=100';
-        console.log(contacts);
         fetch(api).then((res) => {
             return res.json();
         }).then((data) => {
@@ -57,8 +57,8 @@ const Contacts = () => {
         <div className="contacts">
             <div className="brandBar">
                 <div className="user-detail">
-                <div className="detail">{name}</div>
-                <div className="detail">{email}</div>
+                <div className="detail">{JSON.parse(localStorage.getItem('name'))}</div>
+                <div className="detail">{JSON.parse(localStorage.getItem('email'))}</div>
                 </div>
                 <div>
                     <button className="signout-button" onClick={requestSignOut}>Logout</button>
