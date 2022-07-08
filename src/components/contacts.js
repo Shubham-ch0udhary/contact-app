@@ -3,7 +3,7 @@ import { loginContext } from "../App";
 import { FaTrashAlt } from 'react-icons/fa';
 
 const Contacts = () => {
-    const { name, email, isSignedUp, localStorage, setIsSignedUp } = useContext(loginContext);
+    const { setIsSignedUp } = useContext(loginContext);
     const [contacts, setContacts] = useState([]);
     const divRef = useRef([]);
     divRef.current = [];
@@ -26,8 +26,8 @@ const Contacts = () => {
           }
       }
     const requestSignOut = () => {
-        setIsSignedUp(false);
         localStorage.setItem('isSignedUp', JSON.stringify(false));
+        setIsSignedUp(false);
     }
       const deleteRow = (deleteIndex) => {
         //setDeletedIndex(index);

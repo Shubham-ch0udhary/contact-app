@@ -1,26 +1,18 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { loginContext } from '../App';
 import '../index.css';
 
 const SignUp = () => {
     const { name, setName, email, setEmail, password, setPassword, setIsSignedUp } = useContext(loginContext);
-    const getName = (event) => {
-        setName(event.target.value);
-        localStorage.setItem('name', JSON.stringify(name));
-    }
-    const getPassword = (event) => {
-        setPassword(event.target.value);
-    }
-    const getEmail = (event) => {
-        setEmail(event.target.value);
-        localStorage.setItem('email', JSON.stringify(email));
-    };
+
     const requestSignUp = (event) => {
         let emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
         event.preventDefault();
         if(email.match(emailRegex) && name && password) {
             setIsSignedUp(true);
             localStorage.setItem('isSignedUp', JSON.stringify(true));
+            localStorage.setItem('name', JSON.stringify(name));
+            localStorage.setItem('email', JSON.stringify(email));
         } else {
             alert('Either email is not right or other fields are empty')
         }
@@ -35,19 +27,19 @@ const SignUp = () => {
                         <input type="text"
                         className="input-text"
                         placeholder="Name"
-                        onChange={(event) => getName(event)}/>
+                        onChange={(event) => setName(event.target.value)}/>
                     </div>
                     <div className="input-field">
                         <input type="email"
                         className="input-text"
                         placeholder="Email"
-                        onChange={(event) => getEmail(event)}/>
+                        onChange={(event) => setEmail(event.target.value)}/>
                     </div>
                     <div className="input-field">
                         <input type="password"
                         className="input-text"
                         placeholder="Password"
-                        onChange={(event) => getPassword(event)}/>
+                        onChange={(event) => setPassword(event.target.value)}/>
                     </div>
                     <button type="submit" className="button" onClick={(event) => requestSignUp(event)}>
                         Submit

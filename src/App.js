@@ -1,11 +1,11 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, createContext } from 'react';
 import './App.css';
 import SignUp from './components/signup';
 import Contacts from './components/contacts';
 
 export const loginContext = createContext({});
 function App() {
-  const [isSignedUp, setIsSignedUp] = useState(false);
+  const [isSignedUp, setIsSignedUp] = useState('');
   const [ name, setName ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
